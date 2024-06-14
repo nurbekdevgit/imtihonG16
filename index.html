@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <section id="layout">
+    <header style="background-color: rgba(0, 0, 0, 0.26);"
+      class="d-flex align-items-center justify-content-between gap-2 p-3 shadow  ">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars fs-4"></i>
+        </button>
+        <h4 class="fs-5">HTML Javascript Typescript</h4>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn" onclick="logout()">
+          <i class="fa-solid fa-person-walking-dashed-line-arrow-right fs-4"></i>
+        </button>
+      </div>
+    </header>
+    <!--  Sidebar -->
+    <div class="content d-flex">
+      <nav class="p-3">
+        <h4 class="text-white mb-4">Ansvers vs Question</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item active" onclick="openPage(event,'departments')">
+            <i class="fa-solid fa-comment"></i> Answers
+          </li>
+          <li class="list-group-item" onclick="openPage(event,'positions')">
+            <i class="fa-solid fa-question"></i> Questions
+          </li>
+          <li class="list-group-item" onclick="openPage(event,'positions')">
+            <i class="fa-solid fa-gauge-high"></i> Speed
+          </li>
+          <li class="list-group-item" onclick="openPage(event,'positions')">
+            <i class="fa-solid fa-folder-open"></i> Document
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="p-3">
+        <div id="departments" class="page">
+          <div class="d-title d-flex align-content-center justify-content-between gap-2 mb-3">
+            <h4 class="mb-0">Answers</h4>
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#dModal"
+              onclick="openDepartmentModal()">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Edit / Delete</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="page d-none" id="positions">
+          <div class="d-flex align-content-center justify-content-between gap-2 mb-3">
+            <h4 class="mb-0">Questions</h4>
+            <button type="button" class="btn" onclick="openPositionModal()">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>TestId</th>
+                <th>Text</th>
+                <th>Edit / Delete</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <div class="row">
+    <div class="login-container">
+      <h2 class="text-center mb-2">Login</h2>
+      <form class="left-s col-4">
+        <div class="form-group mt-3 px-5">
+          <label for="email">Email</label>
+          <input type="email" class="form-control mt-2" id="email" placeholder="Enter email" />
+        </div>
+        <div class="form-group mt-3 px-5">
+          <label for="password">Password</label>
+          <input type="password" class="form-control mt-3" id="password" placeholder="Enter password" />
+        </div>
+        <div class="text-center px-5 mt-4">
+          <button type="button" onclick="login()" class="mt-2 btn btn-primary btn-block w-100">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Answers modal-->
+  <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Answers</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-2">
+            <label for="departmentName">Name:</label>
+            <input class="rounded form-control" type="text" id="departmentName" />
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <label for="departmentDesc">Active:</label>
+            <input class="rounded form-control" type="text" id="departmentDesc" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="saveDepartment()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--confirm Answers modal-->
+  <div class="modal fade" id="departmentConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            ochirasanmi?
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            yoq
+          </button>
+          <button type="button" class="btn btn-primary" onclick="removeDepartment()">
+            ha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Questions modal-->
+  <div class="modal fade" id="positionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Questions</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-2">
+            <label for="positionName">TestID</label>
+            <input class="rounded form-control" type="text" id="positionName" />
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <label for="positionDesc">Text</label>
+            <input class="rounded form-control" type="text" id="positionDesc" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="savePosition()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--confirm Questions modal-->
+  <div class="modal fade" id="positionConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Questionsni ochirasanmi?
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            yoq
+          </button>
+          <button type="button" class="btn btn-primary" onclick="removePosition()">
+            ha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.minjs"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+      integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+    integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
